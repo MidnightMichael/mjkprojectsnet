@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MJKProjectsDAL.Models.Project>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<div class="row col-md-12">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+<div class="col-md-12">
+    <div class="row col-md-12">
+        <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.ID)</b></div>
+        <div class="col-md-4"><b>@Html.DisplayNameFor(model => model.Title)</b></div>
+        <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.CreatedAt)</b></div>
+        <div class="col-md-4"><b>Options</b></div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row col-md-12">
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.ID)
+            </div>
+            <div class="col-md-4"><a asp-action="Edit" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Title)</a></div>
+            <div class="col-md-2">@Html.DisplayFor(modelItem => item.CreatedAt)</div>
+            <div class="col-md-4">
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </div>
+        </div>        
+    }
+</div>

@@ -1,0 +1,55 @@
+stages:
+    - build
+    - test
+    - package
+    - deploy
+    
+build_job: 
+    stage: build
+    tags: 
+        - dotnet
+        - c#
+    script:
+      - "dotnet clean"
+      - "dotnet build -c Release"
+      - "pwd"
+      - "ls -la"           
+test_job:
+    stage: test
+    tags: 
+        - dotnet
+        - c#
+    script:
+      - "dotnet clean"
+      - "dotnet test"      
+
+package_job:
+    stage: package
+    tags: 
+        - dotnet
+        - c#
+    script:
+      - "pwd"
+      - "dotnet clean"
+      - "dotnet publish -c Release"
+      - "pwd"
+      - "ls -la"
+      - "tar -zcvf MJKProjectsRelease.tar.gz -C ./MJKProjectsClient/bin/Release/netcoreapp3.1/ publish"
+    artifacts:
+        paths:
+        - MJKProjectsRelease.tar.gz
+        expire_in: 1 week
+deploy_job:
+    stage: deploy
+    tags:
+      - dotnet
+      - c#
+    script:
+      - "pwd"
+      - "systemctl stop kestrel-mjkprojects"
+      - "dotnet publish -c Release"      
+      - "cd MJKProjectsDAL"
+      - "dotnet-ef database update --configuration Release" 
+      - "rm -rf RELEASE_DIR*"
+      - "cp -a MJKProjectsClient/bin/Release/netcoreapp3.1/publish/. RELEASE_DIR"
+      - "systemctl start kestrel-mjkprojects"

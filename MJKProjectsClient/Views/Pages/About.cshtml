@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row col-md-12 title-row">
+        <div class="col-md-12">
+            <h1>About</h1>
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="col-md-8">
+            @foreach (var cs in Model.ContentSections)
+            {
+            <div class="row col-md-12 about-row">
+                <div class="col-md-12 about-row-container">
+                    <h5>@cs.Title</h5>
+                    <div class="col-md-12 work-history-row">
+                        <p>@cs.Content</p>
+                    </div>
+                </div>
+            </div>
+            }            
+            <div class="row col-md-12 about-row">
+                <div class="col-md-12 about-row-container">
+                    <h5>My Work History</h5>
+                    @foreach (var wh in Model.WorkHistory)
+                    {
+                        <div class="col-md-12 work-history-row">
+                            <h6>@wh.Name</h6>
+                            <span>From: @wh.Start.Year Till: @wh.End.Year</span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row col-md-12 about-row">
+                <div class="col-md-12 about-row-container">
+                    <h5>My Educations</h5>
+                    @foreach (var edu in Model.Educations)
+                    {
+                        <div class="col-md-12 education-row">
+                            <h6>@edu.Name</h6>
+                            <span>Completed: @edu.CompletedDisplay()</span>
+                            <span>From: @edu.Start.Year Till: @edu.End.Year</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row col-md-12">
+                <div class="col-md-12 skills-container">
+                    <ul class="skills">
+                        <li><h5>My Skills</h5></li>
+                        @foreach (var skill in Model.Skills)
+                        {
+                            <li class="col-md-12">
+                                @skill.Name
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row col-md-12">
+        <div class="col-md-12">
+            <h1>Index</h1>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        @foreach (var project in Model)
+        {
+            <div class="col-md-4 project">
+                <div class="col-md-12 project-container">
+                    <img src="https://via.placeholder.com/1200x450" />
+                    <div class="col-md-12 project-inner">
+                        <h3 class="project-title"><a asp-controller="Projects" asp-action="Single" asp-route-id="@project.TitleToURL()">@project.AllCapsTitle()</a></h3>
+                        <h5 class="project-author">Created by</h5>
+                        <p class="project-content">
+                            @project.ShortContent()
+                        </p>
+                        
+                    </div>
+                    <div class="col-md-12 project-footer">
+                        <a asp-controller="Projects" asp-action="Single" asp-route-id="@project.TitleToURL()">Read more</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
